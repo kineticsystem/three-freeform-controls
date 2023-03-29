@@ -1,12 +1,15 @@
 import {
   BufferGeometry,
+  Color,
+  ColorModelString,
+  ColorRepresentation,
   Float32BufferAttribute,
-  MeshBasicMaterial
+  MeshBasicMaterial,
 } from "three";
 import {
   DEFAULT_COLOR_RING,
   DEFAULT_RING_NUM_POINTS,
-  DEFAULT_RING_RADIUS
+  DEFAULT_RING_RADIUS,
 } from "../../utils/constants";
 import Line from "../../primitives/line";
 import Octahedron from "../../primitives/octahedron";
@@ -21,11 +24,11 @@ export default class Rotation extends RotationGroup {
     const ringNumberOfPoints = DEFAULT_RING_NUM_POINTS;
     const ringGeometry = new BufferGeometry();
     const angle = (2 * Math.PI) / ringNumberOfPoints;
-    const vertices  =[];
+    const vertices = [];
     for (let i = 1; i < ringNumberOfPoints + 1; i++) {
       vertices.push(ringRadius * Math.cos(i * angle), ringRadius * Math.sin(i * angle), 0);
     }
-    ringGeometry.setAttribute('position', new Float32BufferAttribute(vertices, 3));
+    ringGeometry.setAttribute("position", new Float32BufferAttribute(vertices, 3));
     this.ring = new Line(color, ringGeometry);
     this.handlebar = new Octahedron(color);
     this.handlebar.position.y = ringRadius;
@@ -43,7 +46,7 @@ export default class Rotation extends RotationGroup {
   public setColor = (color: string) => {
     const ringMaterial = this.ring.material as MeshBasicMaterial;
     const handlebarMaterial = this.handlebar.material as MeshBasicMaterial;
-    ringMaterial.color.set(color);
-    handlebarMaterial.color.set(color);
+    ringMaterial.color.set(color as ColorModelString);
+    handlebarMaterial.color.set(color as ColorModelString);
   };
 }
