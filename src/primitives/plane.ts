@@ -3,9 +3,9 @@ import {
   DEFAULT_PLANE_HEIGHT,
   DEFAULT_PLANE_SEGMENTS,
   DEFAULT_PLANE_WIDTH,
-  PICK_PLANE_OPACITY
+  PICK_PLANE_OPACITY,
 } from "../utils/constants";
-import {DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry} from "three";
+import { ColorModelString, DoubleSide, Mesh, MeshBasicMaterial, PlaneGeometry } from "three";
 
 export default class Plane extends Mesh {
   constructor(
@@ -16,10 +16,10 @@ export default class Plane extends Mesh {
     super();
     this.geometry = new PlaneGeometry(width, height, DEFAULT_PLANE_SEGMENTS);
     this.material = new MeshBasicMaterial({
-      color,
+      color: color as ColorModelString,
       depthTest: false,
       side: DoubleSide,
-      transparent: true
+      transparent: true,
     });
     this.material.opacity = PICK_PLANE_OPACITY.INACTIVE;
   }
